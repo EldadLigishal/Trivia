@@ -10,9 +10,11 @@ With a dropdwon list, You can choose the difficulty and start the Trvia.
 
 ![](1.png)
 
+This is the presentaion of the questions
 
 ![](2.png)
 
+The App highliting wrong and correct answer after each selection
 
 ![](3.png)
 
