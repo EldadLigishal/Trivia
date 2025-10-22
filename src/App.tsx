@@ -2,7 +2,7 @@ import { useState } from "react";
 import { GlobalStyle, Wrapper } from "./App.style";
 import QuestionCard from "./components/QuestionCard";
 import { fetchTriviaQuestions } from "./services/api";
-import { Difficulty, QuestionState } from "./services/api";
+import { Difficulty, Category, QuestionState } from "./services/api";
 
 const TOTAL = 10;
 export interface AnswerObj {
@@ -20,13 +20,15 @@ function App() {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
   const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.EASY);
+  const [category, setCategory] = useState<Category>(Category.General);
+
 
   console.log(questions);
 
   const startTrivia = async () => {
     setLoading(true);
     setGameOver(false);
-    const newQuestions = await fetchTriviaQuestions(TOTAL, Difficulty.EASY);
+    const newQuestions = await fetchTriviaQuestions(TOTAL, difficulty, category);
     setQuestions(newQuestions);
     setScore(0);
     setUserAnswer([]);
@@ -76,6 +78,14 @@ function App() {
                 <option value={Difficulty.EASY}>Easy</option>
                 <option value={Difficulty.MEDIUM}>Medium</option>
                 <option value={Difficulty.HARD}>Hard</option>
+              </select>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value as Category)}
+              >
+                <option value={Category.General}>General Knowledge</option>
+                <option value={Category.History}>History</option>
+                <option value={Category.Sports}>Sports</option>
               </select>
               <button className="start" onClick={startTrivia}>
                 Start
